@@ -1,0 +1,6 @@
+module Pods_DODODODO_DODODODOTests {
+  umbrella header "Pods-DODODODO-DODODODOTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
