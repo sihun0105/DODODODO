@@ -18,7 +18,29 @@ app.get('/',(req,res) => {
 
 app.use('/test',indexRouter);
 
-  
+const verifyToken = (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(401).json({ message: "토큰이 없습니다." });
+  }
+  try {
+    const data = jwt.verify(
+      req.headers.authorization.replace("Bearer ", ""),
+      jwtSecret
+    );
+    res.locals.email = data.email;
+  } catch (error) {
+    console.error(error);
+    if (error.name === "TokenExpiredError") {
+      return res
+        .status(419)
+        .json({ message: "만료된 액세스 토큰입니다.", code: "expired" });
+    }
+    return res
+      .status(401)
+      .json({ message: "유효하지 않은 액세스 토큰입니다." });
+  }
+  next();
+};
   app.post("/user", (req, res, next) => {
   if (users[req.body.email]) {
           return res.status(401).json({ message: "이미 가입한 회원입니다." });
@@ -64,6 +86,11 @@ app.use('/test',indexRouter);
             accessToken,
           },
         });
+      });
+      
+      app.post("/logout", verifyToken, (req, res, next) => {
+        delete users[res.locals.email];
+        res.json({ message: "ok" });
       });
 
       app.use((req, res, next) => {

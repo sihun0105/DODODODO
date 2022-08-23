@@ -68,15 +68,12 @@ function SignUp({navigation}: SignUpScreenProps) {
         name,
         password,
       });
-      console.log(response.data);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
       const errorResponse = (error as AxiosError).response;
-      console.error(errorResponse);
       if (errorResponse) {
-        console.log('ss');
-        //Alert.alert('알림', errorResponse.data.message);
+        Alert.alert('알림', errorResponse.data.message);
       }
     } finally {
       setLoading(false);
