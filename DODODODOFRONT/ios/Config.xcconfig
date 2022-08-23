@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  DODODODO
+//
+//  Created by 김시훈 on 2022/08/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "tmp.xcconfig"
