@@ -60,7 +60,6 @@ const verifyToken = (req, res, next) => {
       });
 
       app.post("/login", (req, res, next) => {
-        console.log('asdsads');
         if (!users[req.body.email]) {
           return res.status(401).json({ message: "가입하지 않은 회원입니다." });
         }
