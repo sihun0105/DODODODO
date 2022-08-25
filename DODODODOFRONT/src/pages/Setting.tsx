@@ -12,6 +12,7 @@ const Setting = () => {
   const dispatch = useDispatch();
 
   const onLogout = useCallback(async () => {
+    console.log('logout');
     try {
       await axios.post(
         `${Config.API_URL}/logout`,
@@ -39,7 +40,7 @@ const Setting = () => {
   return (
     <View>
       <Text>Setting</Text>
-      <TouchableOpacity onPress={() => {onLogout}}>
+      <TouchableOpacity onPress={onLogout}>
           <Text>로그아웃</Text>
       </TouchableOpacity>
     </View>
