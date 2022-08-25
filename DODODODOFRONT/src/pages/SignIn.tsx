@@ -29,10 +29,10 @@ function SignIn({navigation}: SignInScreenProps) {
   useEffect(() => {
   })
 
-  const onChangeEmail = useCallback(text => {
+  const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
   }, []);
-  const onChangePassword = useCallback(text => {
+  const onChangePassword = useCallback((text: string) => {
     setPassword(text.trim());
   }, []);
   const onSubmit = useCallback(async () => {
@@ -68,8 +68,7 @@ function SignIn({navigation}: SignInScreenProps) {
     } catch (error) {
       const errorResponse = (error as AxiosError).response;
       if (errorResponse) {
-        console.log(errorResponse.data.message);
-        // Alert.alert('알림', errorResponse.data.message);
+        Alert.alert('알림', (errorResponse.data as any).message);
       }
     } finally {
       setLoading(false);
