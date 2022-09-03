@@ -2,15 +2,22 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
-const indexRouter = require("./routes");
-const authRouter = require('./routes/auth');
+const passport = require('passport');
+const session = require('express-session');
 
-const {sequelize} = require('./models');
+dotenv.config();
+const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
+const { sequelize } = require('./models');
+const passportConfig = require('./passport');
 
 const app = express();
+passportConfig(); // 패스포트 설정
 app.set('port', process.env.PORT || 8001);
-
-sequelize.sync({ force: false })
+/**시퀄라이즈 사용하여 db 테이블 없을시 자동 생성,  */
+sequelize.sync({ force: false }) 
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -30,7 +37,6 @@ app.get('/',(req,res) => {
     res.send("ok"); 
 });
 
-app.use('/test',indexRouter);
 app.use('/auth', authRouter);
 const verifyToken = (req, res, next) => {
   if (!req.headers.authorization) {
