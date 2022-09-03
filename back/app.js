@@ -1,14 +1,28 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
-const indexRouter = require("./routes");
 const jwt = require("jsonwebtoken");
+const indexRouter = require("./routes");
+const authRouter = require('./routes/auth');
+
+const {sequelize} = require('./models');
 
 const app = express();
 app.set('port', process.env.PORT || 8001);
+
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('데이터베이스 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+
 
 const users = {};
 const jwtSecret = "JWT_SECRET";
@@ -17,7 +31,7 @@ app.get('/',(req,res) => {
 });
 
 app.use('/test',indexRouter);
-
+app.use('/auth', authRouter);
 const verifyToken = (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "토큰이 없습니다." });

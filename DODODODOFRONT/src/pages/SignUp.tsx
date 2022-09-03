@@ -67,7 +67,7 @@ function SignUp({navigation}: SignUpScreenProps) {
         email,
         name,
         password,
-      });
+      },);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
