@@ -63,14 +63,17 @@ function SignUp({navigation}: SignUpScreenProps) {
     console.log(email, name, password);
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/user`, {
+      const response = await axios.post(`${Config.API_URL}/auth/join`, {
         email,
         name,
-        password,
+        password, // 닉네임 받아오게 수정하시오.
       },);
+      setLoading(false);
+      console.log(response);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
+      console.log(error);
       const errorResponse = (error as AxiosError).response;
       if (errorResponse) {
         Alert.alert('알림', (errorResponse.data as any).message);

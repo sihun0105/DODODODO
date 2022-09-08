@@ -47,7 +47,7 @@ function SignIn({navigation}: SignInScreenProps) {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/login`, {
+      const response = await axios.post(`${Config.API_URL}/auth/login`, {
         email,
         password,
       });

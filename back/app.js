@@ -4,12 +4,10 @@ const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
 const passport = require('passport');
 const session = require('express-session');
+const dotenv = require('dotenv');
 
 dotenv.config();
-const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
-const postRouter = require('./routes/post');
-const userRouter = require('./routes/user');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -33,9 +31,6 @@ app.use(express.json());
 
 const users = {};
 const jwtSecret = "JWT_SECRET";
-app.get('/',(req,res) => {
-    res.send("ok"); 
-});
 
 app.use('/auth', authRouter);
 const verifyToken = (req, res, next) => {
@@ -61,6 +56,9 @@ const verifyToken = (req, res, next) => {
   }
   next();
 };
+  app.get("/",(req,res,next) => {
+    res.send('asdads');
+  })
   app.post("/user", (req, res, next) => {
   if (users[req.body.email]) {
           return res.status(401).json({ message: "이미 가입한 회원입니다." });
@@ -80,9 +78,9 @@ const verifyToken = (req, res, next) => {
       });
 
       app.post("/login", (req, res, next) => {
-        if (!users[req.body.email]) {
-          return res.status(401).json({ message: "가입하지 않은 회원입니다." });
-        }
+        // if (req.body.email) {
+        //   return res.status(401).json({ message: "가입하지 않은 회원입니다." });
+        // }
         if (req.body.password !== users[req.body.email].password) {
           return res.status(401).json({ message: "잘못된 비밀번호입니다." });
         }
