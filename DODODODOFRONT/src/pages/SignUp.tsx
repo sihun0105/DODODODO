@@ -19,14 +19,19 @@ type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 function SignUp({navigation}: SignUpScreenProps) {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const emailRef = useRef<TextInput | null>(null);
+  const nicknameRef = useRef<TextInput | null>(null);
   const nameRef = useRef<TextInput | null>(null);
   const passwordRef = useRef<TextInput | null>(null);
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
+  }, []);
+  const onChangeNickname = useCallback((text: string) => {
+    setNickname(text.trim());
   }, []);
   const onChangeName = useCallback((text: string) => {
     setName(text.trim());
@@ -39,6 +44,9 @@ function SignUp({navigation}: SignUpScreenProps) {
       return;
     }
     if (!email || !email.trim()) {
+      return Alert.alert('알림', '이메일을 입력해주세요.');
+    }
+    if (!nickname || !nickname.trim()) {
       return Alert.alert('알림', '이메일을 입력해주세요.');
     }
     if (!name || !name.trim()) {
@@ -60,14 +68,14 @@ function SignUp({navigation}: SignUpScreenProps) {
         '비밀번호는 영문,숫자,특수문자($@^!%*#?&)를 모두 포함하여 8자 이상 입력해야합니다.',
       );
     }
-    console.log(email, name, password);
+    console.log(email, name, nickname, password);
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/auth/join`, {
+      const response = await axios.post(`${Config.API_URL}/api/users/join`, {
         email,
-        name,
+        nickname,
         password, // 닉네임 받아오게 수정하시오.
-      },);
+      });
       setLoading(false);
       console.log(response);
       Alert.alert('알림', '회원가입 되었습니다.');
@@ -98,6 +106,22 @@ function SignUp({navigation}: SignUpScreenProps) {
           returnKeyType="next"
           clearButtonMode="while-editing"
           ref={emailRef}
+          onSubmitEditing={() => nicknameRef.current?.focus()}
+          blurOnSubmit={false}
+        />
+      </View>
+      <View style={styles.inputWrapper}>
+        <Text style={styles.label}>닉네임</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={onChangeNickname}
+          placeholder="닉네임을 입력해주세요"
+          placeholderTextColor="#666"
+          textContentType="nickname"
+          value={nickname}
+          returnKeyType="next"
+          clearButtonMode="while-editing"
+          ref={nicknameRef}
           onSubmitEditing={() => nameRef.current?.focus()}
           blurOnSubmit={false}
         />
@@ -151,7 +175,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           )}
         </Pressable>
       </View>
-      </>
+    </>
   );
 }
 

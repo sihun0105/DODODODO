@@ -26,9 +26,8 @@ function SignIn({navigation}: SignInScreenProps) {
   const emailRef = useRef<TextInput | null>(null);
   const passwordRef = useRef<TextInput | null>(null);
 
-  useEffect(() => {
-  },[])
-  
+  useEffect(() => {}, []);
+
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
   }, []);
@@ -39,7 +38,7 @@ function SignIn({navigation}: SignInScreenProps) {
     if (loading) {
       return;
     }
-    if (!email || !email.trim()) {
+    if (!email || !email.trim().toLowerCase()) {
       return Alert.alert('알림', '이메일을 입력해주세요.');
     }
     if (!password || !password.trim()) {
@@ -47,7 +46,7 @@ function SignIn({navigation}: SignInScreenProps) {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/auth/login`, {
+      const response = await axios.post(`${Config.API_URL}/api/users/login`, {
         email,
         password,
       });
@@ -55,15 +54,10 @@ function SignIn({navigation}: SignInScreenProps) {
       Alert.alert('알림', '로그인 되었습니다.');
       dispatch(
         userSlice.actions.setUser({
-          name: response.data.data.name,
-          email: response.data.data.email,
-          accessToken: response.data.data.accessToken,
-          refreshToken: response.data.data.refreshToken,
+          email: response.data.email,
+          nickname: response.data.nickname,
+          name: response.data.name,
         }),
-      );
-      await EncryptedStorage.setItem(
-        'refreshToken',
-        response.data.data.refreshToken,
       );
     } catch (error) {
       const errorResponse = (error as AxiosError).response;
@@ -137,7 +131,7 @@ function SignIn({navigation}: SignInScreenProps) {
           <Text style={{color: 'black'}}>회원가입하기</Text>
         </Pressable>
       </View>
-      </>
+    </>
   );
 }
 
