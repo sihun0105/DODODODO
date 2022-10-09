@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(cookieParser());
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3001;
   await app.listen(port);
   console.log(`listen on port ${port}`);
 }
