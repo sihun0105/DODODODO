@@ -12,6 +12,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { ChannelChats } from './ChannelChats';
+import { ChannelMembers } from './ChannelMembers';
+import { Channels } from './Channels';
 @Index('email', ['email'], { unique: true })
 @Entity({ schema: 'sleact', name: 'users' })
 export class Users {
@@ -56,4 +59,24 @@ export class Users {
 
   @DeleteDateColumn()
   deletedAt: Date | null;
+
+  @OneToMany(() => ChannelChats, (channelchats) => channelchats.User)
+  ChannelChats: ChannelChats[];
+
+  @OneToMany(() => ChannelMembers, (channelmembers) => channelmembers.User)
+  ChannelMembers: ChannelMembers[];
+
+  @ManyToMany(() => Channels, (channels) => channels.Members)
+  @JoinTable({
+    name: 'channelmembers',
+    joinColumn: {
+      name: 'UserId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'ChannelId',
+      referencedColumnName: 'id',
+    },
+  })
+  Channels: Channels[];
 }
