@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Users } from './Users';
+import { Users } from './user.entity';
 import { Channels } from './Channels';
 
 @Index('UserId', ['UserId'], {})

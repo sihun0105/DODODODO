@@ -8,6 +8,7 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class UndefinedTonullInterceptor implements NestInterceptor {
+  //undefined 들어오면 null로 변환
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,

@@ -15,7 +15,7 @@ import Config from 'react-native-config';
 import {RootStackParamList} from '../../AppInner';
 import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
-
+import DismissKeyboardView from '../components/DismissKeyboardView';
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 function SignIn({navigation}: SignInScreenProps) {
@@ -46,7 +46,7 @@ function SignIn({navigation}: SignInScreenProps) {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/api/users/login`, {
+      const response = await axios.post(`${Config.API_URL}users/login`, {
         email,
         password,
       });
@@ -75,7 +75,7 @@ function SignIn({navigation}: SignInScreenProps) {
 
   const canGoNext = email && password;
   return (
-    <>
+    <DismissKeyboardView>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>이메일</Text>
         <TextInput
@@ -131,7 +131,7 @@ function SignIn({navigation}: SignInScreenProps) {
           <Text style={{color: 'black'}}>회원가입하기</Text>
         </Pressable>
       </View>
-    </>
+    </DismissKeyboardView>
   );
 }
 

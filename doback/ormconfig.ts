@@ -1,5 +1,9 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import dotenv from 'dotenv';
+import { ChannelChats } from 'src/entities/ChannelChats';
+import { ChannelMembers } from 'src/entities/ChannelMembers';
+import { Channels } from 'src/entities/Channels';
+import { Users } from 'src/entities/user.entity';
 
 dotenv.config();
 const config: TypeOrmModuleOptions = {
@@ -9,7 +13,7 @@ const config: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [],
+  entities: [Users, ChannelChats, ChannelMembers, Channels],
   // migrations: [__dirname + '/src/migrations/*.ts'],
   // cli: { migrationsDir: 'src/migrations' },
   autoLoadEntities: true,

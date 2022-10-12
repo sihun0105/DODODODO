@@ -6,18 +6,18 @@ import { MorganModule } from 'nest-morgan';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
-import { Users } from './entities/user.entity';
 import { EventsModule } from './events/events.module';
+import { ChannelsModule } from './channels/channels.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(ormconfig),
-    TypeOrmModule.forFeature([Users]),
     MorganModule,
     UserModule,
     EventsModule,
+    ChannelsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

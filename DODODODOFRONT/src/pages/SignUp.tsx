@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import DismissKeyboardView from '../components/DismissKeyboardView';
 import axios, {AxiosError} from 'axios';
 import Config from 'react-native-config';
 import {RootStackParamList} from '../../AppInner';
@@ -71,17 +72,15 @@ function SignUp({navigation}: SignUpScreenProps) {
     console.log(email, name, nickname, password);
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.API_URL}/api/users/join`, {
+      const response = await axios.post(`${Config.API_URL}/users/join`, {
         email,
         nickname,
         password, // 닉네임 받아오게 수정하시오.
       });
-      setLoading(false);
-      console.log(response);
+      console.log(response.data);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
-      console.log(error);
       const errorResponse = (error as AxiosError).response;
       if (errorResponse) {
         Alert.alert('알림', (errorResponse.data as any).message);
@@ -93,7 +92,7 @@ function SignUp({navigation}: SignUpScreenProps) {
 
   const canGoNext = email && name && password;
   return (
-    <>
+    <DismissKeyboardView>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>이메일</Text>
         <TextInput
@@ -175,7 +174,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           )}
         </Pressable>
       </View>
-    </>
+    </DismissKeyboardView>
   );
 }
 
