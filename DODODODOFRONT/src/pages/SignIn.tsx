@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   View,
+  Platform,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -87,6 +88,7 @@ function SignIn({navigation}: SignInScreenProps) {
           autoComplete="email"
           textContentType="emailAddress"
           value={email}
+          keyboardType={Platform.OS === 'android' ? 'default' : 'email-address'}
           returnKeyType="next"
           clearButtonMode="while-editing"
           ref={emailRef}
@@ -103,6 +105,7 @@ function SignIn({navigation}: SignInScreenProps) {
           importantForAutofill="yes"
           onChangeText={onChangePassword}
           value={password}
+          keyboardType={Platform.OS === 'android' ? 'default' : 'ascii-capable'}
           autoComplete="password"
           textContentType="password"
           secureTextEntry

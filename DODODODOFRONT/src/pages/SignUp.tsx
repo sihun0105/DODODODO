@@ -81,9 +81,9 @@ function SignUp({navigation}: SignUpScreenProps) {
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
-      const errorResponse = (error as AxiosError).response;
+      const errorResponse = (error as AxiosError<{message: string}>).response;
       if (errorResponse) {
-        Alert.alert('알림', (errorResponse.data as any).message);
+        Alert.alert('알림', errorResponse.data?.message);
       }
     } finally {
       setLoading(false);
@@ -102,6 +102,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           placeholderTextColor="#666"
           textContentType="emailAddress"
           value={email}
+          keyboardType={Platform.OS === 'android' ? 'default' : 'email-address'}
           returnKeyType="next"
           clearButtonMode="while-editing"
           ref={emailRef}
@@ -117,6 +118,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           placeholder="닉네임을 입력해주세요"
           placeholderTextColor="#666"
           textContentType="nickname"
+          keyboardType={Platform.OS === 'android' ? 'default' : 'default'}
           value={nickname}
           returnKeyType="next"
           clearButtonMode="while-editing"
@@ -132,6 +134,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           placeholder="이름을 입력해주세요."
           placeholderTextColor="#666"
           onChangeText={onChangeName}
+          keyboardType={Platform.OS === 'android' ? 'default' : 'default'}
           value={name}
           textContentType="name"
           returnKeyType="next"
