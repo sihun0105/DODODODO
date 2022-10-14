@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
 import { EventsModule } from './events/events.module';
 import { ChannelsModule } from './channels/channels.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,6 +19,7 @@ import { ChannelsModule } from './channels/channels.module';
     UserModule,
     EventsModule,
     ChannelsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
