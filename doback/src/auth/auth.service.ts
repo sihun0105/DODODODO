@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string) {
-    const user = this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { email },
       select: ['id', 'email', 'nickname', 'password'],
     });
@@ -18,5 +19,6 @@ export class AuthService {
     if (!user) {
       return null;
     }
+    const result = await bcrypt.compare(password, user.password);
   }
 }
