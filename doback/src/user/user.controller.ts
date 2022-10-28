@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   UseInterceptors,
+  Response,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,6 +17,7 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiBadGatewayResponse,
+  ApiCookieAuth,
 } from '@nestjs/swagger';
 import { UserDto } from 'src/dto/user.dto';
 import { User } from '../decorators/user.decorator';
@@ -29,7 +31,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiOperation({ summary: '회원가입' })
-  //@UseGuards(NotLoggedInGuard)
+  @UseGuards(NotLoggedInGuard)
   @Post('join')
   async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(
@@ -47,9 +49,18 @@ export class UserController {
     description: '서버 에러',
   })
   @ApiOperation({ summary: '로그인' })
-  //@UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   logIn(@User() user) {
     return user;
+  }
+
+  @ApiCookieAuth('connect.sid')
+  @ApiOperation({ summary: '로그아웃' })
+  @UseGuards(LoggedInGuard)
+  @Post('logout')
+  async logout(@Response() res) {
+    res.clearCookie('connect.sid', { httpOnly: true });
+    return res.send('ok');
   }
 }

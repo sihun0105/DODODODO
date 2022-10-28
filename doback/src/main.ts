@@ -11,7 +11,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
-
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('Sleact API')
     .setDescription('Sleact API개발을 위한 API문서')

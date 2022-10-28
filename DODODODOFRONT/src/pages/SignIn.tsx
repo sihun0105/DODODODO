@@ -47,11 +47,11 @@ function SignIn({navigation}: SignInScreenProps) {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.IOS_API_URL}users/login`, {
+      const response = await axios.post(`${Config.IOS_API_URL}/users/login`, {
         email,
         password,
       });
-      console.log(response);
+      console.log(response.data);
       Alert.alert('알림', '로그인 되었습니다.');
       dispatch(
         userSlice.actions.setUser({
@@ -62,7 +62,9 @@ function SignIn({navigation}: SignInScreenProps) {
       );
     } catch (error) {
       const errorResponse = (error as AxiosError).response;
+      console.log(error);
       if (errorResponse) {
+        console.log(error);
         Alert.alert('알림', (errorResponse.data as any).message);
       }
     } finally {
