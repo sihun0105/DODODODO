@@ -29,7 +29,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiOperation({ summary: '회원가입' })
-  @UseGuards(NotLoggedInGuard)
+  //@UseGuards(NotLoggedInGuard)
   @Post('join')
   async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(
@@ -47,7 +47,7 @@ export class UserController {
     description: '서버 에러',
   })
   @ApiOperation({ summary: '로그인' })
-  @UseGuards(LocalAuthGuard)
+  //@UseGuards(LocalAuthGuard)
   @Post('login')
   logIn(@User() user) {
     return user;
