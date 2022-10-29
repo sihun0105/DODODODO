@@ -6,7 +6,7 @@ import {RootState} from './src/store/reducer';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from './src/pages/Home';
+import HomeStack from './src/pages/HomeStack';
 import Setting from './src/pages/Setting';
 import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
@@ -37,36 +37,23 @@ const AppInner = ({navigation}: SignInScreenProps) => {
   }, [navigation]);
 
   return isLoggedIn ? (
-    <Tab.Navigator
+    <Stack.Navigator
       screenOptions={{
         headerStyle: {
           backgroundColor: Color_main,
         },
+        headerShown: false,
       }}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: () => <Icon name="home" size={35}></Icon>,
-          title: '메인',
-          headerRight: () => (
-            <Button
-              onPress={() => console.log('This is a button!')}
-              title="추가"
-              color="white"
-            />
-          ),
-        }}
+      <Stack.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={
+          {
+            //title: 'Home',
+          }
+        }
       />
-      <Tab.Screen
-        name="Setting"
-        component={Setting}
-        options={{
-          tabBarIcon: () => <Icon name="phone" size={35}></Icon>,
-          title: '설정',
-        }}
-      />
-    </Tab.Navigator>
+    </Stack.Navigator>
   ) : (
     <Stack.Navigator
       screenOptions={{

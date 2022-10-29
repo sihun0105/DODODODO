@@ -14,7 +14,7 @@ const Setting = () => {
   const onLogout = useCallback(async () => {
     console.log('logout');
     try {
-      await axios.post(`${Config.API_URL}/api/users/logout`);
+      await axios.post(`${Config.IOS_API_URL}/users/logout`);
       Alert.alert('알림', '로그아웃 되었습니다.');
       dispatch(
         userSlice.actions.setUser({
