@@ -57,7 +57,6 @@ function SignIn({navigation}: SignInScreenProps) {
         userSlice.actions.setUser({
           email: response.data.email,
           nickname: response.data.nickname,
-          name: response.data.name,
         }),
       );
     } catch (error) {

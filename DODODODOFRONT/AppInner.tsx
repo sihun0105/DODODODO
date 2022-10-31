@@ -28,6 +28,7 @@ export type LoggedInParamList = {
 export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
+  Setting: undefined;
 };
 
 const AppInner = ({navigation}: SignInScreenProps) => {
@@ -44,14 +45,15 @@ const AppInner = ({navigation}: SignInScreenProps) => {
         },
         headerShown: false,
       }}>
+      <Stack.Screen name="HomeStack" component={HomeStack} />
       <Stack.Screen
-        name="HomeStack"
-        component={HomeStack}
-        options={
-          {
-            //title: 'Home',
-          }
-        }
+        name="Setting"
+        component={Setting}
+        options={{
+          headerTitle: '설정',
+          headerShown: true,
+          //title: '설정',
+        }}
       />
     </Stack.Navigator>
   ) : (

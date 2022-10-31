@@ -9,8 +9,11 @@ import Setting from './Setting';
 import Main from './Main';
 import MyPage from './MyPage';
 import ChatSpace from './ChatSpace';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../AppInner';
+type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 const Tab = createBottomTabNavigator();
-const HomeStack = () => {
+const HomeStack = ({navigation}: SignInScreenProps) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -45,10 +48,17 @@ const HomeStack = () => {
           tabBarIcon: () => (
             <Ionicons_Icon name="ios-person" size={35}></Ionicons_Icon>
           ),
+          headerRight: () => (
+            <Button
+              onPress={() => navigation.navigate('Setting')}
+              title="SETTING"
+              color="#fff"
+            />
+          ),
           title: '마이페이지',
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Setting"
         component={Setting}
         options={{
@@ -57,7 +67,7 @@ const HomeStack = () => {
           ),
           title: '설정',
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

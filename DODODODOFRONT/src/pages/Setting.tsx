@@ -1,4 +1,4 @@
-import {View, Text, Alert, TouchableOpacity} from 'react-native';
+import {View, Text, Alert, TouchableOpacity, SafeAreaView} from 'react-native';
 import React, {useCallback} from 'react';
 import Config from 'react-native-config';
 import {useSelector, useDispatch} from 'react-redux';
@@ -30,11 +30,11 @@ const Setting = () => {
     }
   }, [dispatch]);
   return (
-    <View>
+    <SafeAreaView>
       <TouchableOpacity onPress={onLogout}>
         <Text>로그아웃</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
