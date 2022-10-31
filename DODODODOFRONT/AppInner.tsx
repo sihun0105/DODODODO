@@ -11,7 +11,7 @@ import Setting from './src/pages/Setting';
 import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Color_main} from './src/public/colors';
+import {colors} from './src/public/globalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
@@ -40,7 +40,7 @@ const AppInner = ({navigation}: SignInScreenProps) => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Color_main,
+          backgroundColor: colors.main,
         },
         headerShown: false,
       }}>
@@ -58,7 +58,7 @@ const AppInner = ({navigation}: SignInScreenProps) => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Color_main,
+          backgroundColor: colors.main,
         },
       }}>
       <Stack.Screen

@@ -31,7 +31,6 @@ const Setting = () => {
   }, [dispatch]);
   return (
     <View>
-      <Text>Setting</Text>
       <TouchableOpacity onPress={onLogout}>
         <Text>로그아웃</Text>
       </TouchableOpacity>

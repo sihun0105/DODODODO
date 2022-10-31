@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import ChoiceDate from './ChoiceDate';
-const Main = () => {
+
+const ChatSpace = () => {
   return (
     <View>
-      <Text>Main</Text>
+      <Text>ChatSpace</Text>
     </View>
   );
 };
 
-export default Main;
+export default ChatSpace;

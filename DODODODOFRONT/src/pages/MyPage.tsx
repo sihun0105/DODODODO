@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import ChoiceDate from './ChoiceDate';
-const Main = () => {
+
+const MyPage = () => {
   return (
     <View>
-      <Text>Main</Text>
+      <Text>MyPage</Text>
     </View>
   );
 };
 
-export default Main;
+export default MyPage;
