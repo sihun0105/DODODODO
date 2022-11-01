@@ -2,7 +2,7 @@ import {View, Text, ScrollView, StyleSheet, Button} from 'react-native';
 import React from 'react';
 import Todo_container from '../components/Todo_container';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {colors} from '../public/globalStyles';
+import {colors} from '../public/GlobalStyles';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicons_Icon from 'react-native-vector-icons/Ionicons';
 import Setting from './Setting';

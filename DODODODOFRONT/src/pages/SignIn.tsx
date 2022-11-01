@@ -55,6 +55,7 @@ function SignIn({navigation}: SignInScreenProps) {
       Alert.alert('알림', '로그인 되었습니다.');
       dispatch(
         userSlice.actions.setUser({
+          id: response.data.id,
           email: response.data.email,
           nickname: response.data.nickname,
         }),

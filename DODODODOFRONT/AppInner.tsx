@@ -11,7 +11,7 @@ import Setting from './src/pages/Setting';
 import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {colors} from './src/public/globalStyles';
+import {colors} from './src/public/GlobalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
@@ -23,6 +23,10 @@ export type LoggedInParamList = {
   Settings: undefined;
   Delivery: undefined;
   Complete: {orderId: string};
+  Profile: {
+    userId: string;
+    email: string;
+  };
 };
 
 export type RootStackParamList = {
