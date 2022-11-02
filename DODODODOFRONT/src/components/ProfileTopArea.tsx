@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
     height: 100,
     margin: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     borderWidth: 1,
+    flexDirection:'row',
+
   },
 });
