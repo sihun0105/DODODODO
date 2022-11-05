@@ -9,6 +9,7 @@ import * as ormconfig from '../ormconfig';
 import { EventsModule } from './events/events.module';
 import { ChannelsModule } from './channels/channels.module';
 import { AuthModule } from './auth/auth.module';
+import { DmsModule } from './dms/dms.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     EventsModule,
     ChannelsModule,
     AuthModule,
+    DmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
