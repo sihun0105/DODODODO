@@ -12,11 +12,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { ChannelChats } from './ChannelChats';
-import { ChannelMembers } from './ChannelMembers';
-import { Channels } from './Channels';
+import { DMS } from './DMS';
+import { TODO } from './TODO';
+
 @Index('email', ['email'], { unique: true })
-@Entity({ schema: 'sleact', name: 'users' })
+@Entity({ schema: 'DODODODO', name: 'users' })
 export class Users {
   @ApiProperty({
     example: '1',
@@ -60,23 +60,12 @@ export class Users {
   @DeleteDateColumn()
   deletedAt: Date | null;
 
-  @OneToMany(() => ChannelChats, (channelchats) => channelchats.User)
-  ChannelChats: ChannelChats[];
+  @OneToMany(() => DMS, (dms) => dms.Sender)
+  DMs: DMS[];
 
-  @OneToMany(() => ChannelMembers, (channelmembers) => channelmembers.User)
-  ChannelMembers: ChannelMembers[];
+  @OneToMany(() => DMS, (dms) => dms.Receiver)
+  DMs2: DMS[];
 
-  @ManyToMany(() => Channels, (channels) => channels.Members)
-  @JoinTable({
-    name: 'channelmembers',
-    joinColumn: {
-      name: 'UserId',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'ChannelId',
-      referencedColumnName: 'id',
-    },
-  })
-  Channels: Channels[];
+  @OneToMany(() => TODO, (todo) => todo.CreateId)
+  TODO: DMS[];
 }
