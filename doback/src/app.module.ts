@@ -10,6 +10,7 @@ import { EventsModule } from './events/events.module';
 import { ChannelsModule } from './channels/channels.module';
 import { AuthModule } from './auth/auth.module';
 import { DmsModule } from './dms/dms.module';
+import { TodoModule } from './todo/todo.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +23,7 @@ import { DmsModule } from './dms/dms.module';
     ChannelsModule,
     AuthModule,
     DmsModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
