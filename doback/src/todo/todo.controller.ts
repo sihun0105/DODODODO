@@ -1,15 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-
+import { User } from 'src/decorators/user.decorator';
+import { Users } from 'src/entities/user.entity';
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
-    return this.todoService.create(createTodoDto);
+  create(@User() user: Users, @Body() body: CreateTodoDto) {
+    return this.todoService.create(
+      body.title,
+      body.content,
+      body.startDate,
+      body.endDate,
+      user.id,
+    );
   }
 
   @Get()

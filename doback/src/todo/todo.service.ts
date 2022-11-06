@@ -1,10 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { TODO } from 'src/entities/TODO';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoService {
-  create(createTodoDto: CreateTodoDto) {
+  @InjectRepository(TODO)
+  private TODORepository: Repository<TODO>;
+
+  create(
+    title: string,
+    content: string,
+    startDate: string,
+    endDate: string,
+    myId: number,
+  ) {
+    const todo = new TODO();
+    todo.title = title;
+    todo.content = content;
+    todo.startDate = startDate;
+    todo.endDate = endDate;
+    todo.id = myId;
     return 'This action adds a new todo';
   }
 

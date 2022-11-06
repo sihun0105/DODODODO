@@ -7,7 +7,6 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
 import { EventsModule } from './events/events.module';
-import { ChannelsModule } from './channels/channels.module';
 import { AuthModule } from './auth/auth.module';
 import { DmsModule } from './dms/dms.module';
 import { TodoModule } from './todo/todo.module';
@@ -20,7 +19,6 @@ import { TodoModule } from './todo/todo.module';
     MorganModule,
     UserModule,
     EventsModule,
-    ChannelsModule,
     AuthModule,
     DmsModule,
     TodoModule,

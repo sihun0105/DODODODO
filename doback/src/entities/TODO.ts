@@ -15,8 +15,17 @@ export class TODO {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
+  @Column('text', { name: 'title' })
+  title: string;
+
   @Column('text', { name: 'content' })
   content: string;
+
+  @Column('date', { name: 'startDate' })
+  startDate: string;
+
+  @Column('date', { name: 'endDate' })
+  endDate: string;
 
   @CreateDateColumn()
   createdAt: Date;
