@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
@@ -11,9 +11,10 @@ const MyPage = ({navigation}: SignInScreenProps) => {
   console.log(userinfo);
   return (
     <SafeAreaView>
-      <ProfileTopArea email={userinfo.email} id={+userinfo.id} />
+      <ProfileTopArea email={userinfo.email} userImg={''} />
     </SafeAreaView>
   );
 };
 
 export default MyPage;
+const styles = StyleSheet.create({});
