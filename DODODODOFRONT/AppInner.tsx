@@ -19,10 +19,8 @@ const Stack = createNativeStackNavigator();
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 export type LoggedInParamList = {
-  Orders: undefined;
-  Settings: undefined;
-  Delivery: undefined;
-  Complete: {orderId: string};
+  Setting: undefined;
+  HomeStack: undefined;
   Profile: {
     userId: string;
     email: string;
@@ -32,20 +30,19 @@ export type LoggedInParamList = {
 export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
-  Setting: undefined;
 };
 
 const AppInner = ({navigation}: SignInScreenProps) => {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
-  const toSignUp = useCallback(() => {
-    navigation.navigate('SignUp');
-  }, [navigation]);
 
   return isLoggedIn ? (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.main,
+        },
+        headerTitleStyle: {
+          color: '#fff',
         },
         headerShown: false,
       }}>
@@ -56,7 +53,6 @@ const AppInner = ({navigation}: SignInScreenProps) => {
         options={{
           headerTitle: '설정',
           headerShown: true,
-          //title: '설정',
         }}
       />
     </Stack.Navigator>
@@ -65,6 +61,9 @@ const AppInner = ({navigation}: SignInScreenProps) => {
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.main,
+        },
+        headerTitleStyle: {
+          color: '#fff',
         },
       }}>
       <Stack.Screen

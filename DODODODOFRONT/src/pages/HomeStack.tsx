@@ -11,14 +11,21 @@ import MyPage from './MyPage';
 import ChatSpace from './ChatSpace';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
-type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+import {LoggedInParamList} from '../../AppInner';
+type HomeStackScreenProps = NativeStackScreenProps<
+  LoggedInParamList,
+  'Setting'
+>;
 const Tab = createBottomTabNavigator();
-const HomeStack = ({navigation}: SignInScreenProps) => {
+const HomeStack = ({navigation}: HomeStackScreenProps) => {
   return (
     <Tab.Navigator
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.main,
+        },
+        headerTitleStyle: {
+          color: '#fff',
         },
       }}>
       <Tab.Screen
@@ -58,16 +65,6 @@ const HomeStack = ({navigation}: SignInScreenProps) => {
           title: '마이페이지',
         }}
       />
-      {/* <Tab.Screen
-        name="Setting"
-        component={Setting}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons_Icon name="settings" size={35}></Ionicons_Icon>
-          ),
-          title: '설정',
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };
