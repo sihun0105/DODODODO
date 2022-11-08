@@ -7,7 +7,7 @@ const Main = () => {
   const title = 'title';
   const content = 'test content';
   const startDate = '2022-11-08';
-  const endDate = '2022-11-08';
+  const endDate = '2022-11-08'; // ChoiceDate에서 넘기게 수정해야함.
   return (
     <View>
       <Text>Main</Text>
