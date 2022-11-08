@@ -66,6 +66,6 @@ export class Users {
   @OneToMany(() => DMS, (dms) => dms.Receiver)
   DMs2: DMS[];
 
-  @OneToMany(() => TODO, (todo) => todo.CreateId)
-  TODO: DMS[];
+  @OneToMany(() => TODO, (todo) => todo.Creater)
+  TODO: TODO[];
 }

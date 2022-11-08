@@ -16,7 +16,7 @@ import { Users } from 'src/entities/user.entity';
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  @Post()
+  @Post('create')
   create(@User() user: Users, @Body() body: CreateTodoDto) {
     return this.todoService.create(
       body.title,

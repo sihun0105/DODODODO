@@ -27,6 +27,9 @@ export class TODO {
   @Column('date', { name: 'endDate' })
   endDate: string;
 
+  @Column('int', { name: 'CreateId', nullable: true })
+  createId: number | null;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -38,5 +41,5 @@ export class TODO {
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'CreateId', referencedColumnName: 'id' }])
-  CreateId: Users;
+  Creater: Users;
 }

@@ -10,7 +10,7 @@ export class TodoService {
   @InjectRepository(TODO)
   private TODORepository: Repository<TODO>;
 
-  create(
+  async create(
     title: string,
     content: string,
     startDate: string,
@@ -22,8 +22,9 @@ export class TodoService {
     todo.content = content;
     todo.startDate = startDate;
     todo.endDate = endDate;
-    todo.id = myId;
-    return 'This action adds a new todo';
+    todo.createId = myId;
+    console.log(myId);
+    const returned = await this.TODORepository.save(todo);
   }
 
   findAll() {
