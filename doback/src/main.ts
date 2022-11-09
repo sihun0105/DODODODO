@@ -16,8 +16,8 @@ async function bootstrap() {
     credentials: true,
   });
   const config = new DocumentBuilder()
-    .setTitle('Sleact API')
-    .setDescription('Sleact API개발을 위한 API문서')
+    .setTitle('DODODODO API')
+    .setDescription('DODODODO API 정리 문서')
     .setVersion('1.0')
     .addCookieAuth('connect.sid')
     .build();
