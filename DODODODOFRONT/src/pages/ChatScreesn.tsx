@@ -1,7 +1,14 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+
+interface Message {
+  user: string;
+  message: string;
+}
 
 const ChatScreesn = () => {
+  useEffect(() => {}, []);
+
   return (
     <View>
       <Text>ChatScreesn</Text>

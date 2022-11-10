@@ -13,7 +13,7 @@ import SignUp from './src/pages/SignUp';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {colors} from './src/public/GlobalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import useSocket from './src/hook/useSocket';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
@@ -34,7 +34,22 @@ export type RootStackParamList = {
 
 const AppInner = ({navigation}: SignInScreenProps) => {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
-
+  const [socket, disconnect] = useSocket();
+  useEffect(() => {
+    const callback = (data: any) => {
+      console.log(data);
+      //dispatch(orderSlice.actions.addOrder(data));
+    };
+    if (socket && isLoggedIn) {
+      socket.emit('message', 'hello');
+      socket.on('message', callback);
+    }
+    return () => {
+      if (socket) {
+        socket.off('order', callback);
+      }
+    };
+  }, [isLoggedIn, socket]);
   return isLoggedIn ? (
     <Stack.Navigator
       screenOptions={{
