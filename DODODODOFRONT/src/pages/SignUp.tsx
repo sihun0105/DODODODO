@@ -72,11 +72,16 @@ function SignUp({navigation}: SignUpScreenProps) {
     console.log(email, name, nickname, password);
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.IOS_API_URL}/users/join`, {
-        email,
-        nickname,
-        password,
-      });
+      const response = await axios.post(
+        `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+        }/users/join`,
+        {
+          email,
+          nickname,
+          password,
+        },
+      );
       console.log(response.data);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');

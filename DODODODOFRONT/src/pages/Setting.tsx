@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React, {useCallback} from 'react';
 import Config from 'react-native-config';
@@ -22,7 +23,11 @@ const Setting = () => {
   const onLogout = useCallback(async () => {
     console.log('logout');
     try {
-      await axios.post(`${Config.IOS_API_URL}/users/logout`);
+      await axios.post(
+        `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+        }/users/logout`,
+      );
       Alert.alert('알림', '로그아웃 되었습니다.');
       dispatch(
         userSlice.actions.setUser({

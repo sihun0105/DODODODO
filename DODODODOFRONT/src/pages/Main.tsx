@@ -1,4 +1,4 @@
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, Platform} from 'react-native';
 import React from 'react';
 import ChoiceDate from './ChoiceDate';
 import axios, {AxiosError} from 'axios';
@@ -14,12 +14,19 @@ const Main = () => {
       <Button
         title="button gogogo"
         onPress={() => {
-          const response = axios.post(`${Config.IOS_API_URL}/todo/create`, {
-            title,
-            content,
-            startDate,
-            endDate,
-          });
+          const response = axios.post(
+            `${
+              Platform.OS === 'ios'
+                ? Config.IOS_API_URL
+                : Config.ANDROID_API_URL
+            }/todo/create`,
+            {
+              title,
+              content,
+              startDate,
+              endDate,
+            },
+          );
         }}></Button>
     </View>
   );
