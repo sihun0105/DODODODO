@@ -20,6 +20,15 @@ lerna-debug.log*
 /coverage
 /.nyc_output
 
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+
 # IDEs and editors
 /.idea
 .project
