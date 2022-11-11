@@ -20,6 +20,8 @@ import DismissKeyboardView from '../components/DismissKeyboardView';
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 function SignIn({navigation}: SignInScreenProps) {
+  let isIOS = Platform.OS === 'ios' ? 'ios' : 'android';
+  console.log(isIOS);
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -47,10 +49,16 @@ function SignIn({navigation}: SignInScreenProps) {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`${Config.IOS_API_URL}/users/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+        }/users/login`,
+        {
+          email,
+          password,
+        },
+      );
+
       console.log(response.data);
       Alert.alert('알림', '로그인 되었습니다.');
       dispatch(
