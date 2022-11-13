@@ -20,8 +20,6 @@ import DismissKeyboardView from '../components/DismissKeyboardView';
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 function SignIn({navigation}: SignInScreenProps) {
-  let isIOS = Platform.OS === 'ios' ? 'ios' : 'android';
-  console.log(isIOS);
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
