@@ -1,6 +1,0 @@
-module Pods_DODODODO {
-  umbrella header "Pods-DODODODO-umbrella.h"
-
-  export *
-  module * { export * }
-}
