@@ -21,6 +21,7 @@ export class EventsGateway
   @SubscribeMessage('test')
   handleTest(@MessageBody() data: string) {
     console.log('test', data);
+    this.server.emit('test', data);
   }
 
   @SubscribeMessage('login')
