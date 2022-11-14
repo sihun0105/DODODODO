@@ -36,7 +36,7 @@ const Setting = () => {
           accessToken: '',
         }),
       );
-      await EncryptedStorage.removeItem('refreshToken');
+      //await EncryptedStorage.removeItem('refreshToken');
     } catch (error) {
       const errorResponse = (error as AxiosError).response;
       console.error(errorResponse);

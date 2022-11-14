@@ -32,7 +32,7 @@ export type RootStackParamList = {
   SignUp: undefined;
 };
 
-const AppInner = ({navigation}: SignInScreenProps) => {
+const AppInner = () => {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
 
   return isLoggedIn ? (

@@ -12,7 +12,13 @@ const MessageInput = ({send}: {send: (v: string) => void}) => {
         placeholder="메시지를 입력해 주세요..."
         value={value}
         onChangeText={onChangevalue}></TextInput>
-      <Button title="버튼" onPress={() => send(value)} />
+      <Button
+        title="버튼"
+        onPress={() => {
+          send(value);
+          setvalue('');
+        }}
+      />
     </View>
   );
 };
