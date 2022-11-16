@@ -12,7 +12,7 @@ import { Server, Socket } from 'socket.io';
 import { onlineMap } from './onlineMap';
 
 //@WebSocketGateway({ namespace: /\/ws-.+/ })
-@WebSocketGateway({ namespace: 'testsocket' })
+@WebSocketGateway({ namespace: 'chat' })
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
@@ -26,17 +26,14 @@ export class EventsGateway
 
   @SubscribeMessage('login')
   handleLogin(
-    @MessageBody() data: { id: number; channels: number[] },
+    @MessageBody() data: { id: number },
     @ConnectedSocket() socket: Socket,
   ) {
+    console.log('test', data);
     const newNamespace = socket.nsp;
     console.log('login', newNamespace);
     onlineMap[socket.nsp.name][socket.id] = data.id;
     newNamespace.emit('onlineList', Object.values(onlineMap[socket.nsp.name]));
-    data.channels.forEach((channel) => {
-      console.log('join', socket.nsp.name, channel);
-      socket.join(`${socket.nsp.name}-${channel}`);
-    });
   }
 
   afterInit(server: Server): any {

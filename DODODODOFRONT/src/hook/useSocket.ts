@@ -20,7 +20,7 @@ const useSocket = (): [Socket | undefined, () => void] => {
     socket = SocketIOClient(
       `${
         Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
-      }/testsocket`,
+      }/chat`,
       {
         transports: ['websocket'],
       },

@@ -1,7 +1,7 @@
 import {View, Text, SafeAreaView, Button} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from './src/store/reducer';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';

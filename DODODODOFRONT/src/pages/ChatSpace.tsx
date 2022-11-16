@@ -6,10 +6,6 @@ import useSocket from '../hook/useSocket';
 import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
 import Toast from 'react-native-toast-message';
-// interface Message {
-//   user: string;
-//   message: string;
-// }
 
 const ChatSpace = () => {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
@@ -51,8 +47,8 @@ const ChatSpace = () => {
   }, [socket, messageListener]);
   return (
     <SafeAreaView>
-      <MessageInput send={send} />
       <Message message={message} />
+      <MessageInput send={send} />
     </SafeAreaView>
   );
 };

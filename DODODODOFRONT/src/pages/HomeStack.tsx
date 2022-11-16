@@ -12,6 +12,7 @@ import ChatSpace from './ChatSpace';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
 import {LoggedInParamList} from '../../AppInner';
+import ChatRoom from './ChatRoom';
 type HomeStackScreenProps = NativeStackScreenProps<
   LoggedInParamList,
   'Setting'
@@ -40,7 +41,7 @@ const HomeStack = ({navigation}: HomeStackScreenProps) => {
       />
       <Tab.Screen
         name="ChatSpace"
-        component={ChatSpace}
+        component={ChatRoom}
         options={{
           tabBarIcon: () => (
             <Ionicons_Icon name="chatbubbles" size={35}></Ionicons_Icon>
