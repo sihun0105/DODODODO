@@ -12,7 +12,7 @@ const Main = () => {
     <View>
       <Text>Main</Text>
       <Button
-        title="button gogogo"
+        title="MAKE schedule gogogo"
         onPress={() => {
           const response = axios.post(
             `${

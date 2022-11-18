@@ -28,6 +28,16 @@ const ChatRoom = () => {
       socket?.off('onlineList');
     };
   }, [socket]);
+  const onMessage = useCallback((v: number) => {
+    console.log(v);
+    setOnlineList([v]);
+  }, []);
+  useEffect(() => {
+    socket?.on('chat', onMessage);
+    return () => {
+      socket?.off('chat', onMessage);
+    };
+  }, [socket, onMessage]);
   // useEffect(() => {
   //   if (socket && isLoggedIn) {
   //     socket?.emit('login', {id: userinfo?.id});
@@ -41,21 +51,17 @@ const ChatRoom = () => {
   //     }
   //   };
   // }, [socket]);
+  const test = async () => {
+    const response = await axios.get(
+      `${
+        Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+      }/dms/${friendId}/chats`,
+    );
+    console.log(response.data);
+  };
   return (
     <View>
-      <Text>ㅎㅇ</Text>
-      <Button
-        title="TAKE gogogo"
-        onPress={() => {
-          const response = axios.get(
-            `${
-              Platform.OS === 'ios'
-                ? Config.IOS_API_URL
-                : Config.ANDROID_API_URL
-            }/dms/${friendId}/chats`,
-          );
-          console.log(response);
-        }}></Button>
+      <Button title="TAKE message gogogo" onPress={test}></Button>
       <Text>{onlineList.length}</Text>
     </View>
   );

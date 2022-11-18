@@ -1,4 +1,12 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user.decorator';
 import { Users } from 'src/entities/user.entity';
@@ -16,5 +24,14 @@ export class DmsController {
   @Get(':id/chats')
   async getChat(@Param('id', ParseIntPipe) id: number, @User() user: Users) {
     return this.dmsService.getDMChats(id, user.id);
+  }
+
+  @Post(':id/chats')
+  async createChats(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('content') content,
+    @User() user: Users,
+  ) {
+    return this.dmsService.createChats(id, user.id, content);
   }
 }

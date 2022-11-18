@@ -29,11 +29,12 @@ export class EventsGateway
     @MessageBody() data: { id: number },
     @ConnectedSocket() socket: Socket,
   ) {
-    console.log('test', data);
+    console.log('login', data);
     const newNamespace = socket.nsp;
     console.log('login', newNamespace);
     onlineMap[socket.nsp.name][socket.id] = data.id;
     newNamespace.emit('onlineList', Object.values(onlineMap[socket.nsp.name]));
+    socket.join(`${socket.nsp.name}`);
   }
 
   afterInit(server: Server): any {
