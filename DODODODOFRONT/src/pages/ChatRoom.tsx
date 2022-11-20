@@ -1,10 +1,11 @@
 import {View, Text, Button, Platform} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import useSocket from '../hook/useSocket';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {io} from 'socket.io-client';
 
 const ChatRoom = () => {
   const [socket, disconnect] = useSocket();
@@ -18,39 +19,17 @@ const ChatRoom = () => {
     setOnlineList([v]);
   }, []);
 
-  useEffect(() => {
-    socket?.on('onlineList', (data: number[]) => {
-      setOnlineList(data);
-    });
-    console.log('socket on dm', socket?.hasListeners('dm'), socket);
-    return () => {
-      console.log('socket off dm', socket?.hasListeners('dm'));
-      socket?.off('onlineList');
-    };
-  }, [socket]);
   const onMessage = useCallback((v: number) => {
     console.log(v);
     setOnlineList([v]);
   }, []);
   useEffect(() => {
-    socket?.on('chat', onMessage);
+    socket?.on('test', onMessage);
     return () => {
-      socket?.off('chat', onMessage);
+      socket?.off('test', onMessage);
     };
   }, [socket, onMessage]);
-  // useEffect(() => {
-  //   if (socket && isLoggedIn) {
-  //     socket?.emit('login', {id: userinfo?.id});
-  //     socket?.on('login', v => {
-  //       messageListener(v);
-  //     });
-  //   }
-  //   return () => {
-  //     if (socket) {
-  //       socket.off('login');
-  //     }
-  //   };
-  // }, [socket]);
+
   const test = async () => {
     const response = await axios.get(
       `${
