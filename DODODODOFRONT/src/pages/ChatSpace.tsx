@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Platform} from 'react-native';
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
@@ -6,7 +6,10 @@ import useSocket from '../hook/useSocket';
 import MessageInput from '../components/MessageInput';
 import Message from '../components/Message';
 import Toast from 'react-native-toast-message';
+import axios from 'axios';
+import Config from 'react-native-config';
 
+const id = 6; // 받는사람
 const ChatSpace = () => {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
   const [socket, disconnect] = useSocket();
@@ -23,25 +26,31 @@ const ChatSpace = () => {
     [message],
   );
   const send = (v: string) => {
-    socket?.emit('test', v);
+    axios.post(
+      `${
+        Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+      }/dms/${id}/chats`,
+      {
+        content: v,
+      },
+    );
+    // socket?.emit('message', v);
   };
 
   const messageListener = useCallback(
     (m: string) => {
-      setmessage([...message, m]);
-      showToast(m);
-      console.log('새 메시지가 도착했습니다.');
+      setmessage([...message, m.content]);
+      showToast(m.content);
     },
     [message],
   );
   useEffect(() => {
     if (socket && isLoggedIn) {
-      //socket.emit('test', 'hello');
-      socket.on('test', messageListener);
+      socket.on('message', messageListener);
     }
     return () => {
       if (socket) {
-        socket.off('test', messageListener);
+        socket.off('message', messageListener);
       }
     };
   }, [socket, messageListener]);

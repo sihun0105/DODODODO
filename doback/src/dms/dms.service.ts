@@ -30,10 +30,9 @@ export class DmsService {
     dm.ReceiverId = id;
     dm.content = content;
     const saveDM = await this.dmsRepository.save(dm);
-    // const dmWithSender = await this.dmsRepository.findOne({
-    //   where: { id: saveDM.id },
-    // });
-    // const receiverSocketId = getKeyByValue(onlineMap['/chat'], Number(id));
-    this.eventGateway.server.emit('test', 'ok');
+    const chatwithUser = await this.dmsRepository.findOne({
+      where: { id: saveDM.id },
+    });
+    this.eventGateway.server.emit('message', chatwithUser);
   }
 }
