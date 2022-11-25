@@ -36,7 +36,6 @@ const ChatRoom = () => {
         Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
       }/dms/${friendId}/chats`,
     );
-    console.log(response.data);
   };
   return (
     <View>

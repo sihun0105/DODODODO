@@ -14,6 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {colors} from './src/public/GlobalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import useSocket from './src/hook/useSocket';
+import ChoiceDate from './src/pages/ChoiceDate';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
@@ -21,6 +22,7 @@ type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 export type LoggedInParamList = {
   Setting: undefined;
   HomeStack: undefined;
+  ChoiceDate: undefined;
   Profile: {
     userId: string;
     email: string;
@@ -50,6 +52,14 @@ const AppInner = () => {
       <Stack.Screen
         name="Setting"
         component={Setting}
+        options={{
+          headerTitle: '설정',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="ChoiceDate"
+        component={ChoiceDate}
         options={{
           headerTitle: '설정',
           headerShown: true,

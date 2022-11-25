@@ -69,7 +69,6 @@ function SignUp({navigation}: SignUpScreenProps) {
         '비밀번호는 영문,숫자,특수문자($@^!%*#?&)를 모두 포함하여 8자 이상 입력해야합니다.',
       );
     }
-    console.log(email, name, nickname, password);
     try {
       setLoading(true);
       const response = await axios.post(
@@ -82,13 +81,11 @@ function SignUp({navigation}: SignUpScreenProps) {
           password,
         },
       );
-      console.log(response.data);
       Alert.alert('알림', '회원가입 되었습니다.');
       navigation.navigate('SignIn');
     } catch (error) {
       const errorResponse = (error as AxiosError<{message: string}>).response;
       console.log(error);
-      console.log(Config.API_TEST);
       if (errorResponse) {
         Alert.alert('알림', errorResponse.data?.message);
       }

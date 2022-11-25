@@ -3,6 +3,8 @@ import {View, StatusBar, SafeAreaView} from 'react-native';
 import {Calendar, ThemeType} from 'react-native-calendario';
 import moment from 'moment';
 import {MarkedDays} from 'react-native-month';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {LoggedInParamList} from '../../AppInner';
 
 const THEME: ThemeType = {
   monthTitleTextStyle: {
@@ -89,7 +91,8 @@ const markedDays: MarkedDays = {
   },
 };
 
-const ChoiceDate = () => {
+type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'ChoiceDate'>;
+const ChoiceDate = ({navigation}: MainScreenProps) => {
   const [startDate, setStartDate] = useState<Date | undefined>(
     INITIAL_STATE.startDate,
   );

@@ -8,7 +8,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 const MyPage = ({navigation}: SignInScreenProps) => {
   const userinfo = useSelector((state: RootState) => state.user);
-  console.log(userinfo);
   return (
     <SafeAreaView>
       <ProfileTopArea email={userinfo.email} userImg={''} />
