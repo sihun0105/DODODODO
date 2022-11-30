@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {View, StatusBar, SafeAreaView} from 'react-native';
+import {View, StatusBar, SafeAreaView, Button} from 'react-native';
 import {Calendar, ThemeType} from 'react-native-calendario';
 import moment from 'moment';
+import 'moment/locale/ko';
 import {MarkedDays} from 'react-native-month';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {LoggedInParamList} from '../../AppInner';
@@ -54,12 +55,16 @@ const DISABLED_DAYS = {
   '2019-11-10': truthyValue,
 };
 
-const START_DATE_1 = '2020-01-10';
-const END_DATE_1 = '2020-04-15';
+const FORMAT = 'YYYY-MM-DD';
+
+let nowdate = new Date();
+let nextdate = new Date();
+nextdate.setDate(nextdate.getDate() + 1);
+
+const START_DATE_1 = nowdate;
+const END_DATE_1 = nextdate;
 const MIN_DATE_1 = '2020-01-02';
 const MAX_DATE_1 = '2020-04-20';
-
-const FORMAT = 'YYYY-MM-DD';
 
 const INITIAL_STATE = {
   disableRange: false,
@@ -113,20 +118,33 @@ const ChoiceDate = ({navigation}: MainScreenProps) => {
         } else {
           setStartDate(date);
           setEndDate(date);
+          moment(date).format('YYYY-MM-DD');
         }
       } else {
         setStartDate(date);
+        console.log('asdasd', date);
       }
     },
     [startDate, endDate],
   );
-
   return (
     <SafeAreaView>
       <View
         style={{
           paddingTop: StatusBar.currentHeight,
         }}>
+        <Button
+          title="날짜 선택완료"
+          onPress={() => {
+            console.log(
+              moment(startDate).format('YYYY-MM-DD'),
+              moment(endDate).format(FORMAT),
+            );
+            navigation.push('Todo_Detail', {
+              StartDate: moment(startDate).format(FORMAT),
+              EndDate: moment(endDate).format(FORMAT),
+            });
+          }}></Button>
         <Calendar
           onPress={handleChangeDate}
           startDate={startDate}
@@ -139,7 +157,7 @@ const ChoiceDate = ({navigation}: MainScreenProps) => {
           firstDayMonday
           theme={THEME}
           disabledDays={DISABLED_DAYS}
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
         />
       </View>
     </SafeAreaView>

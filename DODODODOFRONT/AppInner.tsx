@@ -15,6 +15,7 @@ import {colors} from './src/public/GlobalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import useSocket from './src/hook/useSocket';
 import ChoiceDate from './src/pages/ChoiceDate';
+import Todo_detail from './src/pages/Todo_detail';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
@@ -23,10 +24,11 @@ export type LoggedInParamList = {
   Setting: undefined;
   HomeStack: undefined;
   ChoiceDate: undefined;
-  Profile: {
-    userId: string;
-    email: string;
+  Todo_Detail: {
+    StartDate: string;
+    EndDate: string;
   };
+  Profile: undefined;
 };
 
 export type RootStackParamList = {
@@ -61,7 +63,15 @@ const AppInner = () => {
         name="ChoiceDate"
         component={ChoiceDate}
         options={{
-          headerTitle: '설정',
+          headerTitle: '날짜선택',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="Todo_Detail"
+        component={Todo_detail}
+        options={{
+          headerTitle: '날짜선택',
           headerShown: true,
         }}
       />
