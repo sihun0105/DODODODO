@@ -14,7 +14,7 @@ import axios from 'axios';
 import Config from 'react-native-config';
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
 const Main = ({navigation}: MainScreenProps) => {
-  const [Todo, setTodo] = useState();
+  const [Todo, setTodo] = useState([]);
   const toChoiceDate = useCallback(() => {
     navigation.navigate('ChoiceDate');
   }, [navigation]);
@@ -25,11 +25,12 @@ const Main = ({navigation}: MainScreenProps) => {
         Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
       }/todo`,
     );
-    console.log(response.data);
-  }, [navigation]);
+    console.log(response.data[1]);
+    setTodo(response.data);
+  }, [Todo]);
   useEffect(() => {
     TakeTodo();
-  }, []);
+  }, [navigation]);
   return (
     <>
       <View style={style.container}>
@@ -41,6 +42,9 @@ const Main = ({navigation}: MainScreenProps) => {
           <Text style={style.CreateButtonText}>+</Text>
         </TouchableOpacity>
       </View>
+      {Todo.map((item, idx) => {
+        return <Text>{item.title}</Text>;
+      })}
     </>
   );
 };
