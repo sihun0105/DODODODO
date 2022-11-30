@@ -5,10 +5,13 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {useDispatch} from 'react-redux';
+import TodoSlice from '../slices/Todo';
 
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
 const Todo_detail = ({navigation}: MainScreenProps) => {
   const route = useRoute<RouteProp<LoggedInParamList>>();
+  const dispatch = useDispatch();
   const [title, settitle] = useState('');
   const [content, setcontent] = useState('');
   const [startDate, setstartDate] = useState(route.params?.StartDate);
@@ -42,6 +45,7 @@ const Todo_detail = ({navigation}: MainScreenProps) => {
         endDate,
       },
     );
+    dispatch(TodoSlice.actions.addTodo(title));
     goMain();
   }, [title, content]);
   return (

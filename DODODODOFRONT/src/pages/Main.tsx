@@ -12,9 +12,12 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {colors, height, width} from '../public/GlobalStyles';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
 const Main = ({navigation}: MainScreenProps) => {
   const [Todo, setTodo] = useState([]);
+  const TodoMakeList = useSelector((state: RootState) => state.Todo.Todo);
   const toChoiceDate = useCallback(() => {
     navigation.navigate('ChoiceDate');
   }, [navigation]);
@@ -25,12 +28,11 @@ const Main = ({navigation}: MainScreenProps) => {
         Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
       }/todo`,
     );
-    console.log(response.data[1]);
     setTodo(response.data);
-  }, [Todo]);
+  }, [Todo, TodoMakeList]);
   useEffect(() => {
     TakeTodo();
-  }, [navigation]);
+  }, [TodoMakeList]);
   return (
     <>
       <View style={style.container}>
