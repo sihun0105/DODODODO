@@ -15,6 +15,17 @@ import Config from 'react-native-config';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
+
+type Todo = {
+  content: string;
+  createId: number;
+  createdAt: Date;
+  endDate: Date;
+  id: number;
+  startDate: Date;
+  title: string;
+  updatedAt: Date;
+};
 const Main = ({navigation}: MainScreenProps) => {
   const [Todo, setTodo] = useState([]);
   const TodoMakeList = useSelector((state: RootState) => state.Todo.Todo);
@@ -44,7 +55,7 @@ const Main = ({navigation}: MainScreenProps) => {
           <Text style={style.CreateButtonText}>+</Text>
         </TouchableOpacity>
       </View>
-      {Todo.map((item, idx) => {
+      {Todo.map((item: Todo, idx: number) => {
         return <Text>{item.title}</Text>;
       })}
     </>
