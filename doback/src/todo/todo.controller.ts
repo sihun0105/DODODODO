@@ -27,14 +27,14 @@ export class TodoController {
     );
   }
 
-  @Get()
-  findAll() {
-    return this.todoService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.todoService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.todoService.findOne(+id);
+  @Get()
+  findMyTodo(@User() user: Users) {
+    return this.todoService.findMyTodo(+user.id);
   }
 
   @Patch(':id')

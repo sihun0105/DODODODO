@@ -31,8 +31,15 @@ export class TodoService {
     return `This action returns all todo`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  async findMyTodo(id: number) {
+    return this.TODORepository.createQueryBuilder('Todo')
+      .where({ createId: id })
+      .getMany();
+    // return this.TODORepository.find({
+    //   where: {
+    //     id: id,
+    //   },
+    // });
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto) {
