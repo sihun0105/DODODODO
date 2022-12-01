@@ -1,10 +1,10 @@
 import {
   View,
   Text,
-  Button,
   Platform,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {LoggedInParamList} from '../../AppInner';
@@ -14,6 +14,7 @@ import axios from 'axios';
 import Config from 'react-native-config';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
+import Todo_container from '../components/Todo_container';
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
 
 type Todo = {
@@ -46,18 +47,20 @@ const Main = ({navigation}: MainScreenProps) => {
   }, [TodoMakeList]);
   return (
     <>
-      <View style={style.container}>
-        <TouchableOpacity
-          style={style.CreateButton}
-          onPress={() => {
-            toChoiceDate();
-          }}>
-          <Text style={style.CreateButtonText}>+</Text>
-        </TouchableOpacity>
-      </View>
-      {Todo.map((item: Todo, idx: number) => {
-        return <Text>{item.title}</Text>;
-      })}
+      <ScrollView>
+        <View style={style.container}>
+          <TouchableOpacity
+            style={style.CreateButton}
+            onPress={() => {
+              toChoiceDate();
+            }}>
+            <Text style={style.CreateButtonText}>+</Text>
+          </TouchableOpacity>
+        </View>
+        {Todo.map((item: Todo, idx: number) => {
+          return <Todo_container text={item.title} />;
+        })}
+      </ScrollView>
     </>
   );
 };

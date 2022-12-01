@@ -1,7 +1,10 @@
 import {getStateFromPath} from '@react-navigation/native';
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState = {
+interface InitialState {
+  Todo: string[];
+}
+const initialState: InitialState = {
   Todo: [],
 };
 
@@ -9,7 +12,7 @@ const TodoSlice = createSlice({
   name: 'TOdo',
   initialState,
   reducers: {
-    addTodo(state, action) {
+    addTodo(state, action: PayloadAction<string>) {
       state.Todo.push(action.payload);
     },
   },

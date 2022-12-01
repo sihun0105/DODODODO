@@ -2,18 +2,23 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-const Todo_container = () => {
+type TodoTextType = {
+  text: string;
+};
+
+const Todo_container = ({text}: TodoTextType) => {
   return (
     <BouncyCheckbox
-      size={25}
+      size={30}
       fillColor="red"
       unfillColor="#FFFFFF"
-      text="아침밥먹기"
+      text={text.length > 20 ? text.substring(0, 20 - 3) + '...' : text}
+      textStyle={{fontSize: 20}}
       iconStyle={{borderColor: 'red'}}
       innerIconStyle={{borderWidth: 1}}
       style={styles.item}
       onPress={(isChecked: boolean) => {
-        console.log('check');
+        console.log(isChecked);
       }}
     />
   );
@@ -28,10 +33,8 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#FFF',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 50,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: 20,
   },
 });
