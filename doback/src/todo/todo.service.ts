@@ -46,7 +46,7 @@ export class TodoService {
     return `This action updates a #${id} todo`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+  async remove(id: number) {
+    return this.TODORepository.delete({ id: id });
   }
 }

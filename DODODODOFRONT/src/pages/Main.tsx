@@ -17,7 +17,7 @@ import {RootState} from '../store/reducer';
 import Todo_container from '../components/Todo_container';
 type MainScreenProps = NativeStackScreenProps<LoggedInParamList, 'HomeStack'>;
 
-type Todo = {
+export type Todo = {
   content: string;
   createId: number;
   createdAt: Date;
@@ -30,6 +30,7 @@ type Todo = {
 const Main = ({navigation}: MainScreenProps) => {
   const [Todo, setTodo] = useState([]);
   const TodoMakeList = useSelector((state: RootState) => state.Todo.Todo);
+
   const toChoiceDate = useCallback(() => {
     navigation.navigate('ChoiceDate');
   }, [navigation]);
@@ -42,6 +43,14 @@ const Main = ({navigation}: MainScreenProps) => {
     );
     setTodo(response.data);
   }, [Todo, TodoMakeList]);
+
+  const DeleteTodo = async (v: number) => {
+    const response = await axios.delete(
+      `${
+        Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+      }/todo/${v}`,
+    );
+  };
   useEffect(() => {
     TakeTodo();
   }, [TodoMakeList]);
@@ -58,7 +67,13 @@ const Main = ({navigation}: MainScreenProps) => {
           </TouchableOpacity>
         </View>
         {Todo.map((item: Todo, idx: number) => {
-          return <Todo_container text={item.title} />;
+          return (
+            <Todo_container
+              text={item.title}
+              itemId={item.id}
+              deleteTodo={DeleteTodo}
+            />
+          );
         })}
       </ScrollView>
     </>
