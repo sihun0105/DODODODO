@@ -29,6 +29,7 @@ export type Todo = {
 };
 const Main = ({navigation}: MainScreenProps) => {
   const [Todo, setTodo] = useState([]);
+  const [loading, setLoading] = useState(false);
   const TodoMakeList = useSelector((state: RootState) => state.Todo.Todo);
 
   const toChoiceDate = useCallback(() => {
@@ -42,18 +43,24 @@ const Main = ({navigation}: MainScreenProps) => {
       }/todo`,
     );
     setTodo(response.data);
-  }, [Todo, TodoMakeList]);
+  }, [Todo]);
 
   const DeleteTodo = async (v: number) => {
-    const response = await axios.delete(
-      `${
-        Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
-      }/todo/${v}`,
-    );
+    setLoading(true);
+    try {
+      const response = await axios.delete(
+        `${
+          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
+        }/todo/${v}`,
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
   };
   useEffect(() => {
     TakeTodo();
-  }, [TodoMakeList]);
+  }, [TodoMakeList, loading]);
   return (
     <>
       <ScrollView>
