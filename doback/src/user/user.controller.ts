@@ -63,4 +63,9 @@ export class UserController {
     res.clearCookie('connect.sid', { httpOnly: true });
     return res.send('ok');
   }
+
+  @Get('findAll')
+  async findAll() {
+    return this.userService.findAll();
+  }
 }

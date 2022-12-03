@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {LoggedInParamList} from '../../AppInner';
@@ -46,17 +47,36 @@ const Main = ({navigation}: MainScreenProps) => {
   }, [Todo]);
 
   const DeleteTodo = async (v: number) => {
-    setLoading(true);
-    try {
-      const response = await axios.delete(
-        `${
-          Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
-        }/todo/${v}`,
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    setLoading(false);
+    Alert.alert(
+      '일정을 삭제하시겠습니까?',
+      '삭제된 일정은 복구할 수 없습니다.',
+      [
+        {
+          text: '아니요',
+          onPress: () => console.log('ㄴㄴ'),
+          style: 'cancel',
+        },
+        {
+          text: '네',
+          onPress: async () => {
+            setLoading(true);
+            try {
+              const response = await axios.delete(
+                `${
+                  Platform.OS === 'ios'
+                    ? Config.IOS_API_URL
+                    : Config.ANDROID_API_URL
+                }/todo/${v}`,
+              );
+            } catch (err) {
+              console.log(err);
+            }
+            setLoading(false);
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
   useEffect(() => {
     TakeTodo();

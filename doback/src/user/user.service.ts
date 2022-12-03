@@ -48,8 +48,10 @@ export class UserService {
       select: ['id', 'email', 'password'],
     });
   }
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    return this.usersRepository.find({
+      select: ['id', 'nickname'],
+    });
   }
 
   findOne(id: number) {

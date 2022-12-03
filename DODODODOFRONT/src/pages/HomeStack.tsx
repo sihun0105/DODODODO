@@ -40,8 +40,8 @@ const HomeStack = ({navigation}: HomeStackScreenProps) => {
         }}
       />
       <Tab.Screen
-        name="ChatSpace"
-        component={ChatSpace}
+        name="ChatRoom"
+        component={ChatRoom}
         options={{
           tabBarIcon: () => (
             <Ionicons_Icon name="chatbubbles" size={35}></Ionicons_Icon>
