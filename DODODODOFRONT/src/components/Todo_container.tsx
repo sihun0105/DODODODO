@@ -2,19 +2,29 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {FunctionComponent} from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 type TodoTextType = {
-  text: string;
+  title: string;
   deleteTodo: (v: number) => void;
   itemId: number;
+  content: string;
+  startDate: Date;
+  endDate: Date;
 };
 
-const Todo_container = ({text, itemId, deleteTodo}: TodoTextType) => {
+const Todo_container = ({
+  title,
+  itemId,
+  deleteTodo,
+  content,
+  startDate,
+  endDate,
+}: TodoTextType) => {
   return (
     <>
       <BouncyCheckbox
         size={30}
         fillColor="red"
         unfillColor="#FFFFFF"
-        text={text.length > 20 ? text.substring(0, 20 - 3) + '...' : text}
+        text={title.length > 20 ? title.substring(0, 20 - 3) + '...' : title}
         textStyle={{fontSize: 20}}
         iconStyle={{borderColor: 'red'}}
         innerIconStyle={{borderWidth: 1}}
@@ -23,7 +33,9 @@ const Todo_container = ({text, itemId, deleteTodo}: TodoTextType) => {
           deleteTodo(itemId);
         }}
       />
-      <Text>{text}</Text>
+      <Text>{content}</Text>
+      <Text>{startDate}</Text>
+      <Text>{endDate}</Text>
     </>
   );
 };

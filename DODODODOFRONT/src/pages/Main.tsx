@@ -76,8 +76,12 @@ const Main = ({navigation}: MainScreenProps) => {
         {Todo.map((item: Todo, idx: number) => {
           return (
             <Todo_container
-              text={item.title}
+              key={idx}
+              title={item.title}
               itemId={item.id}
+              content={item.content}
+              startDate={item.startDate}
+              endDate={item.endDate}
               deleteTodo={DeleteTodo}
             />
           );
