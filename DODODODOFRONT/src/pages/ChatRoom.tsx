@@ -16,12 +16,18 @@ import axios from 'axios';
 import Config from 'react-native-config';
 import {io} from 'socket.io-client';
 import {colors} from '../public/GlobalStyles';
+import {LoggedInParamList} from '../../AppInner';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type friend = {
   id: number;
   nickname: string;
 };
-const ChatRoom = () => {
+type ChatRoomScreenProps = NativeStackScreenProps<
+  LoggedInParamList,
+  'ChatRoom'
+>;
+const ChatRoom = ({navigation}: ChatRoomScreenProps) => {
   const [onlineList, setOnlineList] = useState<number[]>([]);
   const [friendId, setfriendId] = useState([]);
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
@@ -40,11 +46,20 @@ const ChatRoom = () => {
     );
     setfriendId(response.data);
   }, [friendId]);
+
+  const toChatSpace = useCallback(
+    (v: number) => {
+      navigation.navigate('ChatSpace', {
+        ReceiverId: v,
+      });
+    },
+    [navigation],
+  );
   return (
     <ScrollView>
       {friendId.map((item: friend, idx) => {
         return (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => toChatSpace(item.id)} key={idx}>
             <View style={styles.container}>
               <Image
                 style={styles.userImg_Zone}

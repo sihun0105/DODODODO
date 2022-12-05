@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import useSocket from './src/hook/useSocket';
 import ChoiceDate from './src/pages/ChoiceDate';
 import Todo_detail from './src/pages/Todo_detail';
+import ChatSpace from './src/pages/ChatSpace';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
@@ -24,6 +25,10 @@ export type LoggedInParamList = {
   Setting: undefined;
   HomeStack: undefined;
   ChoiceDate: undefined;
+  ChatRoom: undefined;
+  ChatSpace: {
+    ReceiverId: number;
+  };
   Todo_Detail: {
     StartDate: string;
     EndDate: string;
@@ -71,7 +76,15 @@ const AppInner = () => {
         name="Todo_Detail"
         component={Todo_detail}
         options={{
-          headerTitle: '날짜선택',
+          headerTitle: 'Todo_Detail',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="ChatSpace"
+        component={ChatSpace}
+        options={{
+          headerTitle: '채팅방',
           headerShown: true,
         }}
       />

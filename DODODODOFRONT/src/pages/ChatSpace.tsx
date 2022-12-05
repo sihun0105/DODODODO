@@ -8,13 +8,22 @@ import Message from '../components/Message';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 import Config from 'react-native-config';
+import {LoggedInParamList} from '../../AppInner';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RouteProp, useRoute} from '@react-navigation/native';
 
 const id = 6; // 받는사람
-const ChatSpace = () => {
+type ChatSpaceScreenProps = NativeStackScreenProps<
+  LoggedInParamList,
+  'ChatSpace'
+>;
+const ChatSpace = ({navigation}: ChatSpaceScreenProps) => {
+  const route = useRoute<RouteProp<LoggedInParamList>>();
   const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
   const [socket, disconnect] = useSocket();
   const [message, setmessage] = useState<string[]>([]);
-
+  const [ReceiverId, setReceiverId] = useState(route.params?.ReceiverId);
+  console.log(ReceiverId);
   const showToast = useCallback(
     (m: string) => {
       Toast.show({
@@ -29,7 +38,7 @@ const ChatSpace = () => {
     axios.post(
       `${
         Platform.OS === 'ios' ? Config.IOS_API_URL : Config.ANDROID_API_URL
-      }/dms/${id}/chats`,
+      }/dms/${ReceiverId}/chats`,
       {
         content: v,
       },
@@ -38,7 +47,7 @@ const ChatSpace = () => {
   };
 
   const messageListener = useCallback(
-    (m: string) => {
+    (m: any) => {
       setmessage([...message, m.content]);
       showToast(m.content);
     },
